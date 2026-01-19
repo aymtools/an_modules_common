@@ -1,0 +1,54 @@
+name: an_modules_common
+description: "an_modules_common is a common utility extension package for an_modules."
+version: 1.0.0
+homepage: https://github.com/aymtools/an_modules_common/
+issue_tracker: https://github.com/aymtools/an_modules_common/issues
+
+topics:
+  - modules
+  - modular
+  - modularity
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+  flutter: '>=3.22.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared_preferences: ^2.3.3
+
+  cancellable: ^2.5.0
+  anlifecycle: ^3.6.2
+  an_lifecycle_cancellable: ^2.5.3
+  an_viewmodel: ^3.6.0
+  remember: ^2.2.0
+  an_modules: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: any
+
+flutter:
+  uses-material-design: true
+
+  plugin:
+    platforms:
+      android:
+        dartPluginClass: ModuleCommon  # 在 Android 中启用当前模块
+      ios:
+        dartPluginClass: ModuleCommon  # 在 ios 中启用当前模块
+      web:
+        pluginClass: ModuleCommon  # 在 web 中启用当前模块
+        fileName: src/module.dart # 注意与其他的配置不一样
+      windows:
+        dartPluginClass: ModuleCommon  # 在 windows 中启用当前模块
+      macos:
+        dartPluginClass: ModuleCommon  # 在 macos 中启用当前模块
+      linux:
+        dartPluginClass: ModuleCommon  # 在 linux 中启用当前模块
+      fuchsia:
+        dartPluginClass: ModuleCommon  # 在 fuchsia 中启用当前模块
+
