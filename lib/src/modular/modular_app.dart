@@ -3,6 +3,11 @@ import 'package:anlifecycle/anlifecycle.dart';
 import 'package:flutter/material.dart';
 
 /// 启动一个模块化的app
+/// * [configs] 模块化app的配置
+/// * [debugConfigs] 调试配置
+/// * [themeConfigs] 主题配置
+/// * [navigatorConfigs] 导航配置
+/// * [localizationConfigs] 本地化配置
 void runModularApp({
   AppConfigs configs = const AppConfigs(),
   AppDebugConfigs debugConfigs = const AppDebugConfigs(),
@@ -19,6 +24,7 @@ void runModularApp({
   ));
 }
 
+/// 模块化的app
 class ModularApp extends StatelessWidget {
   final AppConfigs configs;
   final AppDebugConfigs debugConfigs;
@@ -26,6 +32,12 @@ class ModularApp extends StatelessWidget {
   final AppNavigatorConfigs navigatorConfigs;
   final AppLocalizationConfigs localizationConfigs;
 
+  /// 模块化的app
+  /// * [configs] 模块化app的配置
+  /// * [debugConfigs] 调试配置
+  /// * [themeConfigs] 主题配置
+  /// * [navigatorConfigs] 导航配置
+  /// * [localizationConfigs] 本地化配置
   const ModularApp(
       {super.key,
       required this.configs,
@@ -84,6 +96,7 @@ class ModularApp extends StatelessWidget {
   }
 }
 
+/// app debug 配置
 class AppDebugConfigs {
   final bool showPerformanceOverlay;
   final bool checkerboardRasterCacheImages;
@@ -92,6 +105,7 @@ class AppDebugConfigs {
   final bool debugShowCheckedModeBanner;
   final bool debugShowMaterialGrid;
 
+  /// app debug 配置
   const AppDebugConfigs({
     this.debugShowMaterialGrid = false,
     this.showPerformanceOverlay = false,
@@ -102,6 +116,7 @@ class AppDebugConfigs {
   });
 }
 
+/// app navigator 配置
 class AppNavigatorConfigs {
   final GlobalKey<NavigatorState>? navigatorKey;
   final String? initialRoute;
@@ -112,16 +127,18 @@ class AppNavigatorConfigs {
       onNavigationNotification;
   final List<NavigatorObserver> navigatorObservers;
 
+  ///  app navigator 配置
   const AppNavigatorConfigs({
     this.navigatorKey,
     this.initialRoute,
     this.onGenerateInitialRouteName,
-    this.onUnknownRoute,
+    this.onUnknownRoute = _notFindPage,
     this.onNavigationNotification,
     this.navigatorObservers = const <NavigatorObserver>[],
   });
 }
 
+/// app theme 配置
 class AppThemeConfigs {
   final ThemeData? theme;
   final ThemeData? darkTheme;
@@ -131,6 +148,7 @@ class AppThemeConfigs {
   final Duration themeAnimationDuration;
   final Curve themeAnimationCurve;
 
+  /// app theme 配置
   const AppThemeConfigs({
     this.theme,
     this.darkTheme,
@@ -142,6 +160,7 @@ class AppThemeConfigs {
   });
 }
 
+/// app localization 配置
 class AppLocalizationConfigs {
   final Locale? locale;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
@@ -149,6 +168,7 @@ class AppLocalizationConfigs {
   final LocaleResolutionCallback? localeResolutionCallback;
   final Iterable<Locale> supportedLocales;
 
+  /// app localization 配置
   const AppLocalizationConfigs({
     this.locale,
     this.localizationsDelegates,
@@ -158,6 +178,7 @@ class AppLocalizationConfigs {
   });
 }
 
+/// app initializer 配置
 class AppConfigs {
   final TransitionBuilder? builder;
   final String title;
@@ -168,6 +189,7 @@ class AppConfigs {
 
   final Widget initializing;
 
+  /// app initializer 配置
   const AppConfigs({
     this.builder,
     this.title = '',
@@ -175,6 +197,39 @@ class AppConfigs {
     this.color,
     this.restorationScopeId,
     this.scrollBehavior,
-    this.initializing = const SizedBox.shrink(),
+    this.initializing = const _AppInitializing(),
   });
+}
+
+/// 默认的app初始化
+class _AppInitializing extends StatelessWidget {
+  const _AppInitializing({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+/// 默认的找不到路由
+Route _notFindPage(RouteSettings settings) =>
+    MaterialPageRoute(builder: (_) => const _NotFindPage());
+
+/// 默认的找不到路由页面
+class _NotFindPage extends StatelessWidget {
+  const _NotFindPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final settings = ModalRoute.of(context)?.settings;
+    return Scaffold(
+      body: Center(
+        child: Text('Can not find route\n$settings'),
+      ),
+    );
+  }
 }
