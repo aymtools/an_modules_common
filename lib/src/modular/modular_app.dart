@@ -203,8 +203,7 @@ class AppConfigs {
 
 /// 默认的app初始化
 class _AppInitializing extends StatelessWidget {
-  // ignore: unused_element_parameter
-  const _AppInitializing({super.key});
+  const _AppInitializing();
 
   @override
   Widget build(BuildContext context) {
@@ -217,21 +216,10 @@ class _AppInitializing extends StatelessWidget {
 }
 
 /// 默认的找不到路由
-Route _notFindPage(RouteSettings settings) =>
-    MaterialPageRoute(builder: (_) => const _NotFindPage());
-
-/// 默认的找不到路由页面
-class _NotFindPage extends StatelessWidget {
-  // ignore: unused_element_parameter
-  const _NotFindPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final settings = ModalRoute.of(context)?.settings;
-    return Scaffold(
-      body: Center(
-        child: Text('Can not find route\n$settings'),
+Route _notFindPage(RouteSettings settings) => MaterialPageRoute(
+      builder: (_) => Scaffold(
+        body: Center(
+          child: Text('Can not find route\n$settings'),
+        ),
       ),
     );
-  }
-}
