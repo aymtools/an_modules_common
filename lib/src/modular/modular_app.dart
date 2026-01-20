@@ -203,6 +203,7 @@ class AppConfigs {
 
 /// 默认的app初始化
 class _AppInitializing extends StatelessWidget {
+  // ignore: unused_element_parameter
   const _AppInitializing({super.key});
 
   @override
@@ -221,6 +222,7 @@ Route _notFindPage(RouteSettings settings) =>
 
 /// 默认的找不到路由页面
 class _NotFindPage extends StatelessWidget {
+  // ignore: unused_element_parameter
   const _NotFindPage({super.key});
 
   @override
